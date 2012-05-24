@@ -1,29 +1,34 @@
+Newsletter Plugin for cake 2.0
+
 ----------------------------------
 REQUIREMENTS
 ----------------------------------
-Extend-Associations: http://bakery.cakephp.org/articles/view/add-delete-habtm-behavior
+Extend-Associations: I've used this, and it works http://iandeth.dyndns.org/mt/ian/archives/20120110-cakephp-extendassociations-behavior/ExtendAssociations2Behavior.txt
+save it under Models/Behavior/ExtendAssociationsBehavior.php
+
 JQuery for ajax calls in admin_send.ctp
 
-You MUST have a sendEmail() function in your Appcontroller
-a demo sendEmail() function that uses SwiftMailer (http://swiftmailer.org/) can be found here http://wiki.github.com/fabiokr/cakephp-newsletter-plugin
+You MUST have a sendEmail() function in your Appcontroller, like follow
+
+    public function sendEmail($subject, $message, $address){
+        App::uses('CakeEmail', 'Network/Email');
+        $email = new CakeEmail('default');
+        $email->from(array('your@email.com' => 'My Site'));
+        $email->to($address);
+        $email->subject($subject);
+        $email->send($message);
+    }
 
 
 ----------------------------------
 INSTALLATION & CONFIGURATION
 ----------------------------------
-drop the plugin files in the folder app/plugins/newsletter/
+drop the plugin files in the folder app/Plugins/Newsletter/
 
-create the necessary DB tables using either:
+create the necessary DB tables using
 the file in app/plugins/newsletter/config/sql/schema.sql
 
-or via shell copy app/plugins/newsletter/config/sql/newsletter.php in app/config/sql/
-and run:
-
-cake schema run create -name Newsletter
-
-
-Open app/plugins/newsletter/config/newsletter.php
-Define the required configuration variables
+Add this variable to your app/Config/bootstrap.php file
 
 Enjoy!
 
